@@ -16,6 +16,15 @@ public class MantenimientoController {
     @Autowired
     private MantenimientoService mantenimientoService;
 
+    @GetMapping("")
+    public ResponseEntity<?> getAll(){
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(this.mantenimientoService.findAll());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error, no hay encargados de mantenimiento");
+        }
+    }
+
     @PostMapping("")
     public ResponseEntity<?> save(@RequestBody Mantenimiento mantenimiento){
 
@@ -46,11 +55,13 @@ public class MantenimientoController {
     }
 
     @PutMapping("/monopatin/{id}")
-    public ResponseEntity<?> update(@PathVariable long id,@RequestBody Monopatin monopatin){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(this.mantenimientoService.registrarMonopatinEnMantenimiento(id,monopatin));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error. No se pudo poner en matenimiento el monopatin.");
+    public ResponseEntity<?> marcarMonopatinEnMantenimiento(@PathVariable long id) {
+        System.out.println(id);
+        Monopatin monopatin = mantenimientoService.registrarMonopatinEnMantenimiento(id);
+        if (monopatin != null) {
+            return ResponseEntity.status(HttpStatus.OK).body("Monopatin marcado en mantenimiento con éxito");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error al marcar el monopatín en mantenimiento");
         }
     }
 }

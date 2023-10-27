@@ -9,8 +9,8 @@ import java.io.Serializable;
 @Data
 public class Monopatin implements Serializable {
 
+    @JsonProperty
     private int id_monopatin;
-
     @JsonProperty
     private String ubicacion;
     @JsonProperty
@@ -22,15 +22,8 @@ public class Monopatin implements Serializable {
     @JsonProperty
     private boolean mantenimiento;
 
-    public Monopatin(int id_monopatin, String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible) {
+    public Monopatin(int id_monopatin, String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible,boolean mantenimiento) {
         this.id_monopatin = id_monopatin;
-        this.ubicacion = ubicacion;
-        this.tiempoDeUso = tiempoDeUso;
-        this.kmsRecorridos = kmsRecorridos;
-        this.disponible = disponible;
-    }
-
-    public Monopatin(String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible, boolean mantenimiento) {
         this.ubicacion = ubicacion;
         this.tiempoDeUso = tiempoDeUso;
         this.kmsRecorridos = kmsRecorridos;
@@ -39,17 +32,6 @@ public class Monopatin implements Serializable {
     }
 
     public Monopatin() {
-    }
-
-    @Override
-    public String toString() {
-        return "Monopatin{" +
-                "id_monopatin=" + id_monopatin +
-                ", ubicacion='" + ubicacion + '\'' +
-                ", tiempoDeUso=" + tiempoDeUso +
-                ", kmsRecorridos=" + kmsRecorridos +
-                ", disponible=" + disponible +
-                '}';
     }
 
     public int getId_monopatin() {
@@ -98,6 +80,18 @@ public class Monopatin implements Serializable {
 
     public void setMantenimiento(boolean mantenimiento) {
         this.mantenimiento = mantenimiento;
+    }
+
+    @Override
+    public String toString() {
+        return "Monopatin{" +
+                "id_monopatin=" + id_monopatin +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", tiempoDeUso=" + tiempoDeUso +
+                ", kmsRecorridos=" + kmsRecorridos +
+                ", disponible=" + disponible +
+                ", mantenimiento=" + mantenimiento +
+                '}';
     }
 }
 

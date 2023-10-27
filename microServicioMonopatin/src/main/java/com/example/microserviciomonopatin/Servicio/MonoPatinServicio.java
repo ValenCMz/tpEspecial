@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
-@Service("monoPatinServicio")
+@Service("monopatinServicio")
+
 public class MonoPatinServicio implements BaseService<Monopatin>{
     @Autowired
     private MonoPatinRepositorio monoPatinRepositorio;
@@ -17,9 +19,10 @@ public class MonoPatinServicio implements BaseService<Monopatin>{
         return this.monoPatinRepositorio.findAll();
     }
 
-    public Monopatin findById(Long id)throws Exception {
+    @Override
+    public Monopatin findById(Long id) throws Exception {
         return this.monoPatinRepositorio.getById(id);
-    };
+    }
 
     public Monopatin save(Monopatin entity)throws  Exception {
         return this.monoPatinRepositorio.save(entity);

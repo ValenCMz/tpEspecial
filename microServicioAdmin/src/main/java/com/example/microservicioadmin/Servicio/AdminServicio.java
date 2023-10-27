@@ -53,7 +53,7 @@ public class AdminServicio implements BaseService<Admin> {
 
     public ResponseEntity agregarMonopatin(Monopatin monopatin){
         HttpHeaders headers = new HttpHeaders();
-        Monopatin m = new Monopatin(monopatin.getUbicacion(),monopatin.getTiempoDeUso(),monopatin.getKmsRecorridos(),monopatin.isDisponible());
+        Monopatin m = new Monopatin(monopatin.getUbicacion(),monopatin.getTiempoDeUso(),monopatin.getKmsRecorridos(),monopatin.isDisponible(),monopatin.isMantenimiento());
         HttpEntity<Monopatin> requestEntity = new HttpEntity<>(m,headers);
         headers.setContentType(MediaType.APPLICATION_JSON);
         ResponseEntity<String> response = adminRest.exchange(

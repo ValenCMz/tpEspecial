@@ -81,4 +81,16 @@ public class Monopatin {
     public void setMantenimiento(boolean mantenimiento) {
         this.mantenimiento = mantenimiento;
     }
+
+    @Override
+    public String toString() {
+        return "Monopatin{" +
+                "id_monopatin=" + id_monopatin +
+                ", ubicacion='" + ubicacion + '\'' +
+                ", tiempoDeUso=" + tiempoDeUso +
+                ", kmsRecorridos=" + kmsRecorridos +
+                ", disponible=" + disponible +
+                ", mantenimiento=" + mantenimiento +
+                '}';
+    }
 }

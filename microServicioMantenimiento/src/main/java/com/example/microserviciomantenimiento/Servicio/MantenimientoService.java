@@ -55,20 +55,55 @@ public class MantenimientoService implements BaseService<Mantenimiento> {
         return true;
     }
 
-    public Monopatin registrarMonopatinEnMantenimiento(long id, Monopatin monopatin){
-        Monopatin m = new Monopatin(monopatin.getUbicacion(),monopatin.getTiempoDeUso(),monopatin.getKmsRecorridos(),monopatin.isDisponible(),monopatin.isMantenimiento());
+    public Monopatin registrarMonopatinEnMantenimiento(long id) {
+        // Paso 1: Realizar una solicitud GET para obtener el monopatín actual
+        ResponseEntity<Monopatin> response = obtenerMonopatinPorId(id);
+
+        if (response.getStatusCode() == HttpStatus.OK) {
+            Monopatin monopatinRespuesta = response.getBody();
+
+            // Paso 2: Marcar el monopatín como en mantenimiento
+            if (monopatinRespuesta != null) {
+                monopatinRespuesta.setMantenimiento(true);
+
+                // Paso 3: Realizar una solicitud PUT para actualizar el monopatín
+                ResponseEntity<Monopatin> respuestaActualizacion = actualizarMonopatin(id, monopatinRespuesta);
+
+                if (respuestaActualizacion.getStatusCode() == HttpStatus.OK) {
+                    // Devolver el monopatín actualizado
+                    return respuestaActualizacion.getBody();
+                }
+            }
+        }
+
+        // Si algo falla, devolver null o manejar el error de manera adecuada
+        return null;
+    }
+
+    private ResponseEntity<Monopatin> obtenerMonopatinPorId(long id) {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
-        ResponseEntity<Monopatin>response = mantenimientoRest.exchange(
+        ResponseEntity<Monopatin> response = mantenimientoRest.exchange(
                 "http://localhost:8003/monopatin/" + id,
                 HttpMethod.GET,
                 requestEntity,
-                new ParameterizedTypeReference<Monopatin>() {}
-
+                Monopatin.class
         );
-        headers.setContentType(MediaType.APPLICATION_JSON);
-        System.out.println(response);
-        return null;
+
+        return response;
+    }
+
+    private ResponseEntity<Monopatin> actualizarMonopatin(long id, Monopatin monopatin) {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<Monopatin> requestEntity = new HttpEntity<>(monopatin, headers);
+        ResponseEntity<Monopatin> response = mantenimientoRest.exchange(
+                "http://localhost:8003/monopatin/" + id,
+                HttpMethod.PUT,
+                requestEntity,
+                Monopatin.class
+        );
+
+        return response;
     }
 
 }

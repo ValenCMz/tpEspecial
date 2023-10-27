@@ -22,20 +22,24 @@ public class Monopatin implements Serializable {
     private double kmsRecorridos;
     @JsonProperty
     private boolean disponible;
+    @JsonProperty
+    private boolean mantenimiento;
 
-    public Monopatin(int id_monopatin, String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible) {
+    public Monopatin(int id_monopatin, String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible, boolean mantenimiento) {
         this.id_monopatin = id_monopatin;
         this.ubicacion = ubicacion;
         this.tiempoDeUso = tiempoDeUso;
         this.kmsRecorridos = kmsRecorridos;
         this.disponible = disponible;
+        this.mantenimiento = mantenimiento;
     }
 
-    public Monopatin(String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible) {
+    public Monopatin(String ubicacion, double tiempoDeUso, double kmsRecorridos, boolean disponible,boolean mantenimiento) {
         this.ubicacion = ubicacion;
         this.tiempoDeUso = tiempoDeUso;
         this.kmsRecorridos = kmsRecorridos;
         this.disponible = disponible;
+        this.mantenimiento = mantenimiento;
     }
 
     public Monopatin() {
@@ -90,5 +94,13 @@ public class Monopatin implements Serializable {
 
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
+    }
+
+    public boolean isMantenimiento() {
+        return mantenimiento;
+    }
+
+    public void setMantenimiento(boolean mantenimiento) {
+        this.mantenimiento = mantenimiento;
     }
 }
